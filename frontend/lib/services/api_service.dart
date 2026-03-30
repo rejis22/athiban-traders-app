@@ -7,8 +7,8 @@ class ApiService {
   final Dio _dio = Dio();
   // Use localhost on Web/Desktop, 10.0.2.2 on Android Emulator
   final String baseUrl = kIsWeb
-      ? 'https://athiban-traders-6.onrender.com/api'
-      : 'https://athiban-traders-6.onrender.com/api';
+      ? 'https://athiban-traders-app.onrender.com/api'
+      : 'https://athiban-traders-app.onrender.com/api';
 
   ApiService() {
     _dio.options.baseUrl = baseUrl;
