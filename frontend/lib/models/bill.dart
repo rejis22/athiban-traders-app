@@ -59,7 +59,9 @@ class BillItem extends HiveObject {
 
   factory BillItem.fromJson(Map<String, dynamic> json) {
     return BillItem(
-      product: json['product'] != null ? Product.fromJson(json['product']) : null,
+      product: (json['product'] is Map<String, dynamic>) 
+          ? Product.fromJson(json['product']) 
+          : null,
       productName: json['productName'] ?? '',
       quantity: (json['quantity'] ?? 0).toDouble(),
       price: (json['price'] ?? 0).toDouble(),
