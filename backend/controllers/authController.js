@@ -50,16 +50,7 @@ const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Offline/Fallback Demo Login check
-        if ((email === 'athibantredars2005@gmail.com' || email === 'athibantraders2005@gmail.com' || phone == '6383707706') && password === '7678') {
-            return res.json({
-                _id: 'offline_admin_id',
-                name: 'Athiban Admin',
-                email: email,
-                role: 'admin',
-                token: generateToken('offline_admin_id'),
-            });
-        }
+
 
         const user = await User.findOne({ email }).catch(() => null);
 
