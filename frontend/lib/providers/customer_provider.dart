@@ -27,10 +27,11 @@ class CustomerProvider with ChangeNotifier {
           
           await box.clear();
           await box.addAll(_customers);
+        } else {
+           throw Exception('Failed to load customers');
         }
       } catch (e) {
-        // Fallback offline
-        _customers = box.values.toList();
+        throw Exception('API Error: $e');
       }
     } finally {
       _isLoading = false;
@@ -47,10 +48,11 @@ class CustomerProvider with ChangeNotifier {
         final newCustomer = Customer.fromJson(response.data);
         _customers.add(newCustomer);
         await box.add(newCustomer);
+      } else {
+         throw Exception('Failed to add customer: ${response.statusCode}');
       }
     } catch (e) {
-      _customers.add(customer);
-      await box.add(customer);
+      throw Exception('API Error: $e');
     }
     notifyListeners();
   }

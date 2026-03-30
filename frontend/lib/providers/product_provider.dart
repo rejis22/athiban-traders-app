@@ -30,8 +30,7 @@ class ProductProvider with ChangeNotifier {
           await box.addAll(_products);
         }
       } catch (e) {
-        // Fallback to offline Hive
-        _products = box.values.toList();
+        throw Exception('Failed to fetch products: $e');
       }
     } finally {
       _isLoading = false;
@@ -42,21 +41,17 @@ class ProductProvider with ChangeNotifier {
   Future<void> addProduct(Product product) async {
     final box = await Hive.openBox<Product>('products');
     
-    try {
+      try {
       final response = await _apiService.client.post('/products', data: product.toJson());
       if (response.statusCode == 201) {
         final newProduct = Product.fromJson(response.data);
         _products.add(newProduct);
         await box.add(newProduct);
+      } else {
+        throw Exception('Failed to add product: ${response.statusCode}');
       }
     } catch (e) {
-      // If offline
-      print('Added product offline');
-      // For a real robust offline system, you would tag these as unsynced
-      // like we do for bills. Since products are usually admin managed,
-      // it is a bit difference. But we'll add it locally.
-      _products.add(product);
-      await box.add(product);
+      throw Exception('API Error: $e');
     }
     notifyListeners();
   }
@@ -74,17 +69,12 @@ class ProductProvider with ChangeNotifier {
             await box.putAt(index, _products[index]);
             notifyListeners();
           }
+        } else {
+           throw Exception('Failed to update product');
         }
       }
     } catch (e) {
-      print('Update failed: $e');
-      // Offline fallback
-      final index = _products.indexWhere((p) => p.id == updatedProduct.id);
-      if (index != -1) {
-        _products[index] = updatedProduct;
-        await box.putAt(index, updatedProduct);
-        notifyListeners();
-      }
+      throw Exception('Update failed: $e');
     }
   }
 }

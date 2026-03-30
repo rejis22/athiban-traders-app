@@ -23,19 +23,17 @@ class BillProvider with ChangeNotifier {
         
         if (response.statusCode == 200) {
           final List<dynamic> data = response.data;
-          // Filter to only synced bills so we don't overwrite offline cached ones
           final serverBills = data.map((json) => Bill.fromJson(json)).toList();
-          
-          final localUnsynced = box.values.where((b) => !b.isSynced).toList();
           
           await box.clear();
           await box.addAll(serverBills);
-          await box.addAll(localUnsynced);
           
-          _bills = [...serverBills, ...localUnsynced];
+          _bills = [...serverBills];
+        } else {
+           throw Exception('Failed to load bills');
         }
       } catch (e) {
-        _bills = box.values.toList();
+        throw Exception('API sync error: $e');
       }
     } finally {
       // Sort descending by date
@@ -52,16 +50,14 @@ class BillProvider with ChangeNotifier {
       final response = await _apiService.client.post('/bills', data: bill.toJson());
       if (response.statusCode == 201) {
         bill.isSynced = true;
-        // Optionally update the id from the server response
         bill.id = response.data['_id'] ?? bill.id;
         _bills.insert(0, bill);
         await box.add(bill);
+      } else {
+         throw Exception('Checkout rejected by server: ${response.statusCode}');
       }
     } catch (e) {
-      // Save offline
-      bill.isSynced = false;
-      _bills.insert(0, bill);
-      await box.add(bill);
+      throw Exception('Checkout failed: $e');
     }
     notifyListeners();
   }

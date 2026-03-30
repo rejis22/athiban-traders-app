@@ -45,16 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.sync),
-            tooltip: 'Sync Offline Data',
-            onPressed: () {
-              // TODO: trigger SyncManager
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Syncing in background...')),
-              );
-            },
-          ),
+
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
