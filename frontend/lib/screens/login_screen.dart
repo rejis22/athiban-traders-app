@@ -24,14 +24,6 @@ class _LoginScreenState extends State<LoginScreen> {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();
 
-      // Absolute Offline Emergency Bypass
-      if ((email == 'athibantredars2005@gmail.com' || email == 'athibantraders2005@gmail.com') && password == '7678') {
-         final box = Hive.box('settings');
-         await box.put('token', 'offline_emergency_token');
-         if (!mounted) return;
-         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const DashboardScreen()));
-         return;
-      }
 
       final response = await _apiService.client.post('/auth/login', data: {
         'email': email,
