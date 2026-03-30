@@ -1,0 +1,255 @@
+﻿Compiling lib\main.dart for the Web...                          
+flutter : Unexpected wasm 
+dry run failure (255):
+At line:1 char:1
++ flutter build web *>&1 | 
+Out-File 
+flutter_web_log.txt 
+-Encoding utf8
++ ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (Une  
+  xpected wasm dry run f   
+ ailure (255)::String)     
+[], RemoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+
+Unhandled exception:
+Unsupported operation: 
+Cannot extract a file path 
+from a org-dartlang-untrans
+latable-uri URI
+#0      _Uri.toFilePath 
+(dart:core/uri.dart:3432)
+#1      DryRunSummarizer._l
+intChecks (package:dart2was
+m/dry_run.dart:167)
+#2      
+DryRunSummarizer.summarize 
+(package:dart2wasm/dry_run.
+dart:236)
+#3      _runCfePhase (packa
+ge:dart2wasm/compile.dart:3
+55)
+<asynchronous suspension>
+#4      compile (package:da
+rt2wasm/compile.dart:222)
+<asynchronous suspension>
+#5      generateWasm (packa
+ge:dart2wasm/generate_wasm.
+dart:63)
+<asynchronous suspension>
+#6      main (file:///C:/b/
+s/w/ir/x/w/sdk/pkg/dart2was
+m/bin/dart2wasm.dart:10)
+<asynchronous suspension>
+
+Use --no-wasm-dry-run to 
+disable these warnings.
+Target dart2js failed: 
+ProcessException: Process 
+exited abnormally with 
+exit code 1:
+Error: Couldn't resolve 
+the package 
+'universal_html' in 'packag
+e:universal_html/html.dart'
+.
+lib/screens/audit_screen.da
+rt:7:8:
+Error: Not found: 'package:
+universal_html/html.dart'
+import 'package:universal_h
+tml/html.dart' as html;
+       ^
+lib/screens/audit_screen.da
+rt:84:27:
+Error: Method not found: 
+'Blob'.
+        final blob = 
+html.Blob([bytes], 
+'text/csv');
+                          
+^^^^
+lib/screens/audit_screen.da
+rt:85:26:
+Error: Undefined name 
+'Url'.
+        final url = html.Ur
+l.createObjectUrlFromBlob(b
+lob);
+                         
+^^^
+lib/screens/audit_screen.da
+rt:86:14:
+Error: Method not found: 
+'AnchorElement'.
+        
+html.AnchorElement(href: 
+url)
+             ^^^^^^^^^^^^^
+lib/screens/audit_screen.da
+rt:89:14:
+Error: Undefined name 
+'Url'.
+        html.Url.revokeObje
+ctUrl(url);
+             ^^^
+Error: Compilation failed.
+  Command: C:\Users\ASUS\On
+eDrive\Desktop\Athiban Trad
+ers\flutter\bin\cache\dart-
+sdk\bin\dart.exe compile 
+js --platform-binaries=C:\U
+sers\ASUS\OneDrive\Desktop\
+Athiban Traders\flutter\bin
+\cache\flutter_web_sdk\kern
+el --invoker=flutter_tool 
+-Ddart.vm.product=true 
+-DFLUTTER_VERSION=3.41.6 
+-DFLUTTER_CHANNEL=stable -D
+FLUTTER_GIT_URL=https://git
+hub.com/flutter/flutter.git
+ -DFLUTTER_FRAMEWORK_REVISI
+ON=db50e20168 -DFLUTTER_ENG
+INE_REVISION=425cfb54d0 -DF
+LUTTER_DART_VERSION=3.11.4 
+-DFLUTTER_WEB_USE_SKIA=true
+ -DFLUTTER_WEB_USE_SKWASM=f
+alse -DFLUTTER_WEB_CANVASKI
+T_URL=https://www.gstatic.c
+om/flutter-canvaskit/425cfb
+54d01a9472b3e81d9e76fd63a4a
+44cfbcb/ 
+--native-null-assertions 
+--no-source-maps -O4 
+--minify -o D:\Athiban_Trad
+ers\App\frontend\.dart_tool
+\flutter_build\e0c37aba0841
+9c93ff10a7d5b77834de\app.di
+ll --packages=D:\Athiban_Tr
+aders\App\frontend\.dart_to
+ol\package_config.json 
+--cfe-only D:\Athiban_Trade
+rs\App\frontend\.dart_tool\
+flutter_build\e0c37aba08419
+c93ff10a7d5b77834de\main.da
+rt
+#0      
+RunResult.throwException (p
+ackage:flutter_tools/src/ba
+se/process.dart:153:5)
+#1      
+_DefaultProcessUtils.run (p
+ackage:flutter_tools/src/ba
+se/process.dart:379:19)
+<asynchronous suspension>
+#2      
+Dart2JSTarget.build (packag
+e:flutter_tools/src/build_s
+ystem/targets/web.dart:208:
+5)
+<asynchronous suspension>
+#3      _BuildInstance._inv
+okeInternal (package:flutte
+r_tools/src/build_system/bu
+ild_system.dart:937:9)
+<asynchronous suspension>
+#4      
+Future.wait.<anonymous 
+closure> (dart:async/future
+.dart:546:21)
+<asynchronous suspension>
+#5      _BuildInstance.invo
+keTarget (package:flutter_t
+ools/src/build_system/build
+_system.dart:875:32)
+<asynchronous suspension>
+#6      
+Future.wait.<anonymous 
+closure> (dart:async/future
+.dart:546:21)
+<asynchronous suspension>
+#7      _BuildInstance.invo
+keTarget (package:flutter_t
+ools/src/build_system/build
+_system.dart:875:32)
+<asynchronous suspension>
+#8      
+FlutterBuildSystem.build (p
+ackage:flutter_tools/src/bu
+ild_system/build_system.dar
+t:684:16)
+<asynchronous suspension>
+#9      
+WebBuilder.buildWeb (packag
+e:flutter_tools/src/web/com
+pile.dart:107:34)
+<asynchronous suspension>
+#10     
+BuildWebCommand.runCommand 
+(package:flutter_tools/src/
+commands/build_web.dart:300
+:5)
+<asynchronous suspension>
+#11     FlutterCommand.run.
+<anonymous closure> (packag
+e:flutter_tools/src/runner/
+flutter_command.dart:1590:2
+7)
+<asynchronous suspension>
+#12     
+AppContext.run.<anonymous 
+closure> (package:flutter_t
+ools/src/base/context.dart:
+154:19)
+<asynchronous suspension>
+#13     
+CommandRunner.runCommand (p
+ackage:args/command_runner.
+dart:212:13)
+<asynchronous suspension>
+#14     FlutterCommandRunne
+r.runCommand.<anonymous 
+closure> (package:flutter_t
+ools/src/runner/flutter_com
+mand_runner.dart:496:9)
+<asynchronous suspension>
+#15     
+AppContext.run.<anonymous 
+closure> (package:flutter_t
+ools/src/base/context.dart:
+154:19)
+<asynchronous suspension>
+#16     FlutterCommandRunne
+r.runCommand (package:flutt
+er_tools/src/runner/flutter
+_command_runner.dart:431:5)
+<asynchronous suspension>
+#17     FlutterCommandRunne
+r.run.<anonymous closure> (
+package:flutter_tools/src/r
+unner/flutter_command_runne
+r.dart:307:33)
+<asynchronous suspension>
+#18     run.<anonymous 
+closure>.<anonymous 
+closure> (package:flutter_t
+ools/runner.dart:104:11)
+<asynchronous suspension>
+#19     
+AppContext.run.<anonymous 
+closure> (package:flutter_t
+ools/src/base/context.dart:
+154:19)
+<asynchronous suspension>
+#20     main (package:flutt
+er_tools/executable.dart:10
+3:3)
+<asynchronous suspension>
+
+Compiling lib\main.dart for the Web...                             14.1s
+Error: Failed to compile 
+application for the Web.
