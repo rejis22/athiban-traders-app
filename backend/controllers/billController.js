@@ -27,19 +27,31 @@ const createBill = async (req, res) => {
         }
 
         const bill = new Bill({
-            billNumber,
-            date,
+            invoiceNumber: billNumber,
+            date, // although schema uses createdAt by default, date is fine if mapped correctly, but let's strictly use Mongoose keys
             customer,
             customerName: customerName || 'Walk-in Customer',
             customerPhone,
             customerAddress,
-            items,
-            subTotal,
-            taxRate,
-            taxAmount,
+            items: items.map(item => ({
+                product: item.product,
+                name: item.productName || item.name || 'Item',
+                quantity: item.quantity,
+                price: item.price,
+                unit: 'Pieces', // frontend doesn't send unit, but schema requires it
+                hsnCode: item.hsnCode,
+                taxRate: item.taxRate,
+                discountPercentage: item.discountPercentage,
+                cgst: item.cgst,
+                sgst: item.sgst,
+                igst: item.igst,
+                total: item.total
+            })),
+            subtotal: subTotal,
+            tax: taxAmount,
             discount,
             roundOff,
-            grandTotal,
+            totalAmount: grandTotal,
         });
 
         const createdBill = await bill.save();
