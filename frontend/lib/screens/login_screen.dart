@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:dio/dio.dart';
 import '../services/api_service.dart';
-import 'dashboard_screen.dart';
+import 'main_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
           if (!mounted) return;
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const DashboardScreen()),
+            MaterialPageRoute(builder: (_) => const MainScreen()),
           );
           return;
         } else {

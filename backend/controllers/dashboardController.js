@@ -38,9 +38,27 @@ const getDashboardMetrics = async (req, res) => {
             }
         ]);
 
+        const itemSales = await Bill.aggregate([
+            { $match: matchStage },
+            { $unwind: "$items" },
+            {
+                $group: {
+                    _id: "$items.productName",
+                    totalQuantity: { $sum: "$items.quantity" },
+                    totalRevenue: { $sum: { $multiply: ["$items.quantity", "$items.unitPrice"] } }
+                }
+            },
+            { $sort: { totalQuantity: -1 } }
+        ]);
+
+        const topProducts = itemSales.slice(0, 5);
+        const lowProducts = itemSales.slice(-5).reverse(); // Reverse to have the lowest first
+
         res.json({
             period: period || 'all',
-            metrics: metrics.length > 0 ? metrics[0] : { totalSales: 0, totalBills: 0 }
+            metrics: metrics.length > 0 ? metrics[0] : { totalSales: 0, totalBills: 0 },
+            highSales: topProducts,
+            lowSales: lowProducts
         });
 
     } catch (error) {

@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-import 'dart:js_interop';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
@@ -8,7 +7,6 @@ import 'package:printing/printing.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:web/web.dart' as web;
 import '../models/bill.dart';
 
 class PdfInvoiceService {
@@ -333,21 +331,7 @@ class PdfInvoiceService {
 
   static Future<void> savePdfLocally(Bill bill, Uint8List bytes) async {
     final fileName = 'Invoice_${bill.billNumber}.pdf';
-    
-    if (kIsWeb) {
-      final blob = web.Blob([bytes.toJS].toJS, web.BlobPropertyBag(type: 'application/pdf'));
-      final url = web.URL.createObjectURL(blob);
-      final anchor = web.document.createElement('a') as web.HTMLAnchorElement
-        ..href = url
-        ..download = fileName;
-      
-      web.document.body?.append(anchor);
-      anchor.click();
-      anchor.remove();
-      web.URL.revokeObjectURL(url);
-    } else {
-      await Printing.sharePdf(bytes: bytes, filename: fileName);
-    }
+    await Printing.sharePdf(bytes: bytes, filename: fileName);
   }
 
   static Future<void> shareToWhatsApp(Bill bill, Uint8List bytes) async {

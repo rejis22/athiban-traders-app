@@ -203,6 +203,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _showAddDialog,
         icon: const Icon(Icons.add),
@@ -216,62 +217,113 @@ class _InventoryScreenState extends State<InventoryScreen> {
           }
 
           if (provider.products.isEmpty) {
-            return const Center(
-              child: Text(
-                'No products found in inventory.',
-                style: TextStyle(fontSize: 18, color: Colors.black54),
-              ),
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   Icon(Icons.inventory_2_outlined, size: 80, color: Colors.grey[400]),
+                   const SizedBox(height: 16),
+                   const Text(
+                    'No items in inventory',
+                    style: TextStyle(fontSize: 18, color: Colors.grey, fontWeight: FontWeight.w500),
+                  ),
+                ]
+              )
             );
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: provider.products.length,
-            itemBuilder: (ctx, i) {
-              final product = provider.products[i];
-              return Card(
-                elevation: 2,
-                margin: const EdgeInsets.only(bottom: 12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: ListTile(
-                  contentPadding: const EdgeInsets.all(16),
-                  leading: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
-                    child: Text(
-                      product.code.isNotEmpty ? product.code.substring(0, 1).toUpperCase() : 'P',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    product.name,
-                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                  subtitle: Text('Code: ${product.code}  •  Unit: ${product.unit}\nStock Limit: ${product.stock} left  •  GST: ${product.taxRate}%\nHSN: ${product.hsnCode}'),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '₹${product.price.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.primary,
+          return Column(
+            children: [
+              Container(
+                color: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total Items: ${provider.products.length}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                    Icon(Icons.filter_list, color: Colors.grey[600]),
+                  ]
+                )
+              ),
+              Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: provider.products.length,
+                  separatorBuilder: (context, index) => const Divider(height: 1),
+                  itemBuilder: (ctx, i) {
+                    final product = provider.products[i];
+                    final bool isLowStock = product.stock < 10;
+                    
+                    return InkWell(
+                      onTap: () => _showEditDialog(product),
+                      child: Container(
+                        padding: const EdgeInsets.all(12),
+                        color: Colors.white,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 48,
+                              height: 48,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8)
+                              ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                product.code.isNotEmpty ? product.code.substring(0, 1).toUpperCase() : 'P',
+                                style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    product.name,
+                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      Text('Code: ${product.code} • ', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                                      Text('HSN: ${product.hsnCode}', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '₹${product.price.toStringAsFixed(2)}',
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Stock: ${product.stock} ${product.unit}',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    color: isLowStock ? Colors.red : Colors.green[700],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      IconButton(
-                        icon: const Icon(Icons.edit, color: Colors.blue),
-                        onPressed: () => _showEditDialog(product),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+            ],
           );
         },
       ),

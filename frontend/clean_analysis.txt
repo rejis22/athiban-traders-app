@@ -1,0 +1,28 @@
+Analyzingfrontend...                                           
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\audit_screen.dart:27:35 -use_build_context_synchronously
+  info - 'Share'isdeprecatedandshouldn'tbeused.UseSharePlusinstead -lib\screens\audit_screen.dart:82:13 -deprecated_member_use
+  info - 'shareXFiles'isdeprecatedandshouldn'tbeused.UseSharePlus.instance.share()instead -lib\screens\audit_screen.dart:82:19 -deprecated_member_use
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\audit_screen.dart:86:28 -use_build_context_synchronously
+  info - 'withOpacity'isdeprecatedandshouldn'tbeused.Use .withValues()toavoidprecisionloss -lib\screens\audit_screen.dart:209:79 -deprecated_member_use
+  info - 'withOpacity'isdeprecatedandshouldn'tbeused.Use .withValues()toavoidprecisionloss -lib\screens\audit_screen.dart:209:112 -deprecated_member_use
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\audit_screen.dart:245:72 -use_build_context_synchronously
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\billing_screen.dart:37:36 -use_build_context_synchronously
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\billing_screen.dart:214:9 -use_build_context_synchronously
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\billing_screen.dart:256:28 -use_build_context_synchronously
+  info - 'value'isdeprecatedandshouldn'tbeused.UseinitialValueinstead.Thiswillsettheinitialvaluefortheformfield.Thisfeaturewasdeprecatedafterv3.33.0-1.0.pre -lib\screens\billing_screen.dart:337:31 -deprecated_member_use
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\customers_screen.dart:18:39 -use_build_context_synchronously
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\dashboard_metrics_screen.dart:20:40 -use_build_context_synchronously
+  info -Don'tuse 'BuildContext'sacrossasyncgaps -lib\screens\inventory_screen.dart:18:38 -use_build_context_synchronously
+  info - 'withOpacity'isdeprecatedandshouldn'tbeused.Use .withValues()toavoidprecisionloss -lib\screens\inventory_screen.dart:269:78 -deprecated_member_use
+  info - 'withOpacity'isdeprecatedandshouldn'tbeused.Use .withValues()toavoidprecisionloss -lib\screens\login_screen.dart:95:39 -deprecated_member_use
+  info -Unnecessaryuseofmultipleunderscores -lib\screens\main_screen.dart:78:87 -unnecessary_underscores
+  info -Unnecessaryuseofmultipleunderscores -lib\screens\main_screen.dart:78:91 -unnecessary_underscores
+  info - 'withOpacity'isdeprecatedandshouldn'tbeused.Use .withValues()toavoidprecisionloss -lib\screens\main_screen.dart:134:73 -deprecated_member_use
+  info -Theimportof 'dart:typed_data'isunnecessarybecausealloftheusedelementsarealsoprovidedbytheimportof 'package:flutter/foundation.dart' -lib\services\pdf_service.dart:1:8 -unnecessary_import
+  info -Useinterpolationtocomposestringsandvalues -lib\services\pdf_service.dart:20:31 -prefer_interpolation_to_compose_strings
+  info -Useinterpolationtocomposestringsandvalues -lib\services\pdf_service.dart:21:33 -prefer_interpolation_to_compose_strings
+  info -Useinterpolationtocomposestringsandvalues -lib\services\pdf_service.dart:22:35 -prefer_interpolation_to_compose_strings
+  info -Useinterpolationtocomposestringsandvalues -lib\services\pdf_service.dart:23:12 -prefer_interpolation_to_compose_strings
+  info - 'Share'isdeprecatedandshouldn'tbeused.UseSharePlusinstead -lib\services\pdf_service.dart:360:13 -deprecated_member_use
+  info - 'shareXFiles'isdeprecatedandshouldn'tbeused.UseSharePlus.instance.share()instead -lib\services\pdf_service.dart:360:19 -deprecated_member_use
+  info -Don'tinvoke 'print'inproductioncode -lib\services\sync_manager.dart:20:9 -avoid_print

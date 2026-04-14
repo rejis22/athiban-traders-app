@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart'; // Add this
 
 class ApiService {
   final Dio _dio = Dio();
-  // Use localhost on Web/Desktop, 10.0.2.2 on Android Emulator
+  // Use production Render URL
   final String baseUrl = kIsWeb
       ? 'https://athiban-traders-app.onrender.com/api'
       : 'https://athiban-traders-app.onrender.com/api';

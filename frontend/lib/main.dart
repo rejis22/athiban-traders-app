@@ -8,7 +8,8 @@ import 'models/product.dart';
 import 'providers/bill_provider.dart';
 import 'providers/customer_provider.dart';
 import 'providers/product_provider.dart';
-import 'screens/dashboard_screen.dart';
+import 'providers/dashboard_provider.dart';
+import 'screens/main_screen.dart';
 import 'screens/login_screen.dart';
 
 void main() async {
@@ -39,9 +40,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ChangeNotifierProvider(create: (_) => CustomerProvider()),
         ChangeNotifierProvider(create: (_) => BillProvider()),
+        ChangeNotifierProvider(create: (_) => DashboardProvider()),
       ],
       child: MaterialApp(
-        title: 'Athiban Traders App',
+        title: 'Athiban Traders',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
@@ -72,7 +74,7 @@ class AuthCheck extends StatelessWidget {
     final token = box.get('token');
 
     if (token != null) {
-      return const DashboardScreen();
+      return const MainScreen();
     } else {
       return const LoginScreen();
     }

@@ -38,8 +38,14 @@ const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
     try {
+        if (!process.env.MONGODB_URI) {
+            console.error('CRITICAL: MONGODB_URI is undefined. Check .env file.');
+        }
+
         // We will mock the mongoose connection so the dev can run this locally without crashing if Atlas is not perfectly setup yet, but we'll try to connect normally
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGODB_URI, {
+            serverSelectionTimeoutMS: 5000,
+        });
         console.log('MongoDB Connected successfully');
         
         app.listen(PORT, () => {
@@ -51,7 +57,7 @@ const startServer = async () => {
         
         // Still start app to allow testing basic routes
         app.listen(PORT, () => {
-             console.log(`Server running on port ${PORT} (Database Disconnected)`);
+             console.log(`Server running on port ${PORT} (Database Disconnected Mode)`);
         });
     }
 };

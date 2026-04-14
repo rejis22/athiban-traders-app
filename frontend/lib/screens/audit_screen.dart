@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:csv/csv.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:web/web.dart' as web;
-import 'dart:js_interop';
 
 import '../models/bill.dart';
 import '../providers/bill_provider.dart';
@@ -81,22 +79,9 @@ class _AuditScreenState extends State<AuditScreen> {
       String csvData = const ListToCsvConverter().convert(rows);
       final bytes = utf8.encode(csvData);
 
-      if (kIsWeb) {
-        final blob = web.Blob([bytes.toJS].toJS, web.BlobPropertyBag(type: 'text/csv'));
-        final url = web.URL.createObjectURL(blob);
-        final anchor = web.document.createElement('a') as web.HTMLAnchorElement
-          ..href = url
-          ..download = 'Audit_Report_${DateTime.now().millisecondsSinceEpoch}.csv';
-        
-        web.document.body?.append(anchor);
-        anchor.click();
-        anchor.remove();
-        web.URL.revokeObjectURL(url);
-      } else {
-        await Share.shareXFiles([
-          XFile.fromData(Uint8List.fromList(bytes), mimeType: 'text/csv', name: 'Audit_Report.csv')
-        ]);
-      }
+      await Share.shareXFiles([
+        XFile.fromData(Uint8List.fromList(bytes), mimeType: 'text/csv', name: 'Audit_Report.csv')
+      ]);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Export failed: $e'), backgroundColor: Colors.red),
@@ -249,10 +234,26 @@ class _AuditScreenState extends State<AuditScreen> {
                                             fontWeight: FontWeight.bold,
                                             color: Theme.of(context).colorScheme.primary),
                                       ),
-                                      OutlinedButton.icon(
-                                        onPressed: () => _downloadInvoicePdf(bill),
-                                        icon: const Icon(Icons.picture_as_pdf, size: 18, color: Colors.red),
-                                        label: const Text('View PDF', style: TextStyle(color: Colors.red)),
+                                      Row(
+                                        children: [
+                                          IconButton(
+                                            onPressed: () async {
+                                              try {
+                                                final bytes = await PdfInvoiceService.generatePdfBinary(bill);
+                                                await PdfInvoiceService.shareToWhatsApp(bill, bytes);
+                                              } catch(e) {
+                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error sharing: $e')));
+                                              }
+                                            },
+                                            icon: const Icon(Icons.wechat, color: Colors.green),
+                                            tooltip: 'Share on WhatsApp',
+                                          ),
+                                          OutlinedButton.icon(
+                                            onPressed: () => _downloadInvoicePdf(bill),
+                                            icon: const Icon(Icons.picture_as_pdf, size: 18, color: Colors.red),
+                                            label: const Text('View PDF', style: TextStyle(color: Colors.red)),
+                                          )
+                                        ]
                                       )
                                     ],
                                   )
